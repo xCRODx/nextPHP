@@ -16,7 +16,9 @@ class Event extends ObjectCore{
 
     private $localVars = [];
     private $returnType = null;
-    private $returnVars = [];
+    private $returnVal = [];  //can be any type of variable: string, array, integer, float
+    
+    public $break = false;
 
     function __construct($event, $driverCache = null) {
         parent::__construct($event);
@@ -40,6 +42,8 @@ class Event extends ObjectCore{
 
         //Execute the action to insert into a var such value and return to the las driver
         foreach($this->eventList as $index => $event){
+            if($this->break)
+                return;
             //$action = new Action($baseObject, $event, $vars, $params);
             $action = new Action($event);
             $action->fire($this, $baseObject);

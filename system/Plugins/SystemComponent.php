@@ -1,7 +1,7 @@
 <?php 
 namespace Components;
-use Interfaces\ComponentInterface;
-class SystemComponent implements ComponentInterface{
+use Interfaces\PluginInterface;
+class SystemPlugin implements PluginInterface{
     static function to_print($params){
 
     }

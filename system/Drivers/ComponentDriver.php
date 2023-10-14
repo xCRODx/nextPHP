@@ -4,9 +4,6 @@ use Core\Cache;
 use Core\Session;
 use Core\Component;
 
-use RecursiveIteratorIterator;
-use RecursiveDirectoryIterator;
-
 class ComponentDriver{
     public $base_components = [];
     public $components = [];

@@ -1,7 +1,12 @@
 <?php
+
 namespace Core;
+
 use Interfaces\BasicStaticInterface;
+
 use Core\Observer;
+use Core\Context;
+
 use Drivers\ComponentDriver;
 //use Drivers\EventDriver;
 //use Drivers\BehaviorDriver;
@@ -22,9 +27,9 @@ class Globals implements BasicStaticInterface {
     static $componentDriver;
 
 
-    public static function set($k, $v)  { self::$vars[$k] = $v; }
-    public static function get($k)      { return self::$vars[$k]; }
-    public static function delete($k)   { unset(self::$vars[$k]); }
+    public static function set($k, $v)  { self::$vars["globals.{$k}"] = $v; }
+    public static function get($k)      { return self::$vars["globals.{$k}"]; }
+    public static function delete($k)   { unset(self::$vars["globals.{$k}"]); }
 
     public static function start($class = []){
         if(!self::$started){
@@ -60,6 +65,16 @@ class Globals implements BasicStaticInterface {
             throw new \Exception(t('Erro: Method "%s" not found', $class));
         }
         return call_user_func_array([$class, $method], $parameters);
+    }
+
+    public static function getAllVars(){
+        $vars = [];
+        foreach(array_merge(self::$vars, Context::$context) as $var => $val){
+
+        }
+        $vars = array_merge(self::$observer->getAllComponentsVars(), $vars);
+
+        return is_array($vars) ? $vars : $vars;
     }
 
 }

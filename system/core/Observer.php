@@ -39,7 +39,7 @@ class Observer{
             
             if(isset($this->components[$objectUUID]->events['beforecreate']))
                 $this->components[$objectUUID]->events['beforecreate']->fireEvent($this->components);
-            $this->components[$objectUUID]->uuid = $objectUUID;
+            $this->components[$objectUUID]->setUUID($objectUUID);
             $this->components[$objectUUID]->setState('created');
             
             if(isset($this->components[$objectUUID]->events['aftercreate']))
@@ -67,12 +67,34 @@ class Observer{
         //remove this from cache
     }
 
+    public function setAlias(ObjectCore $object, String $alias){
+        $uuid = $object->getUUID();
+        if(isset($this->components[$uuid])){
+            $object = $this->$this->components[$uuid];
+        }
+        $this->components[$alias] = $object;
+        $this->components[$alias]->setUUID($alias);
+
+    }
+
     public function updateAttribute(Object $object, $attribute, $val = null){
         $className = get_class($object);
         if($className === 'Component'){
             $objectUUID = $object->getUUID();
             $this->objLoop[$objectUUID]++;
             $this->components[$objectUUID]->updateAttribute($attribute, $val);
+        }
+    }
+
+    public function getAllComponentsVars(){
+        $vars = [];
+
+        foreach($this->components as $component){
+            $alias = $component->getAlias();
+            $cVars = $component->getAllVars();
+            foreach($cVars as $var => $val){
+                $vars["component.{$alias}.{$var}"] = $val;
+            }
         }
     }
 

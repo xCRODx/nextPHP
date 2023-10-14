@@ -3,6 +3,7 @@
 namespace Core;
 
 use Core\ObjectCore;
+use Core\Interpreter;
 
 class Event extends ObjectCore{
 
@@ -32,6 +33,18 @@ class Event extends ObjectCore{
         foreach($this->eventList as $evId => $event){
 
         }
+    }
+
+    public function getVar($var, $val){
+        $allVars = array_merge(Globals::getAllVars(), [$var => $val]);
+        $val = Interpreter::replaceVars($var, $allVars);
+        $this->localVars[$var] = $val;
+        
+        return $val;
+    }
+
+    public function getLocalVar($var, $val){
+        $this->localVars["local.".$var] = $val;
     }
 
 }

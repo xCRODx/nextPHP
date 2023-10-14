@@ -27,7 +27,7 @@ class ObjectCore implements ObjectCore_Interface{
             
             $this->domain = $object['domain'] ?: [];
             $this->image = $object['image'] ?: [];
-            $this->uuid = isset($object['uuid']) ? $object['uuid'] : null;
+            $this->uuid = isset($object['uuid']) ? $object['uuid'] : (isset($object['image']['alias']) ? $object['image']['alias'] : null);
             $this->name = $object['name'];
             $this->events = $object['events'];
              
@@ -40,6 +40,13 @@ class ObjectCore implements ObjectCore_Interface{
 
     public function getUUID(){
         return $this->uuid;
+    }
+
+    public function setUUID($uuid){
+        $this->uuid = $uuid;
+    }
+    public function getAlias(){
+        return $this->image['alias'] ?: $this->getUUID();
     }
 
     public function setState($state){

@@ -1,0 +1,14 @@
+{
+    "name": "Teste",
+    "events": {
+        "beforecreate": ["Event2", "param1", "param2"],
+        "aftercreate": ["Event2", "param1", "param2"],
+        "beforedestroyed": ["Event2", "param1", "param2"],
+        "afterdestroyed": ["Event2", "param1", "param2"]
+    },
+    "domain": {
+        "properties": {
+            "state": ""
+        }
+    }
+}

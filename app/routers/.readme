@@ -1,0 +1,7 @@
+The funcion of a router is to set some global endpoints that can call components and especifics components
+That can allow to use events and middlewares to control the aplcation flush.
+Such parameters can be added to the router. It can be accessed on the context variables.
+For ex. the URL https://example.com/user/{{:id}}/ to https://example.com/user/123 the url varable 'ID' will contain the 123 value
+It can set POST, DELETE, PUT and PATCH variabls to. each one will get this oun
+Use the ContextComponent to access the url parameter variables
+ContextComponent[POST][variable]

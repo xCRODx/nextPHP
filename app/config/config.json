@@ -1,0 +1,18 @@
+{
+    "aplication_language": "pt-br",
+    "events_engine": "json",
+    "components_engine": "json",
+    "entities_engine": "json",
+    "cache_engine": "serialize",
+    "cache_extension": "",
+    "cache_duration": "hour",
+    "log_extension": "txt",
+    "SYSTEM_VAR_STRUCTURE": "{{:var}}",
+    "default_date_format": "d\/m\/Y",
+    "default_datetime_format": "d\/m\/Y h:i:s",
+    "main_event": "Home",
+    "base_header_params": [
+        "Content-Type: charset=utf-8",
+        "Connection: keep-alive"
+    ]
+}

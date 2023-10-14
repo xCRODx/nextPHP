@@ -1,0 +1,18 @@
+{
+    "name": "cleydson-rodrigues/next-php",
+    "autoload": {
+      "psr-4": {
+        "Core\\": "system/Core/",
+        "Funcs\\": "system/Funcs/",
+        "Includes\\": "System/Inc/",
+        "Classes\\": "system/Class/",
+        "Drivers\\": "system/Drivers/",
+        "Interfaces\\": "system/Interfaces/",
+        "Exceptions\\": "System/Exceptions/"
+      },
+      "files": [
+        "system/funcs/common.funcs.php",
+        "system/funcs/main.funcs.php"
+      ]
+    }
+  }

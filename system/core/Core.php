@@ -1,19 +1,9 @@
 <?php
 namespace Core;
 
-use Core\Event;
-use Core\Component;
 use Core\Context;
 use Core\Runtime;
 use Core\Session;
-
-use Classes\Response;
-
-use Drivers\ComponentDriver;
-
-use Exception;
-use Exceptions\Component_Exception;
-use Exceptions\DB_Exception;
 
 class Core {
     public static $backTraceRoute = [];
@@ -29,7 +19,6 @@ class Core {
         Runtime::start();
         Globals::start();
         //$this->response = new Response();
-        try{
             if(env('environment') == 'development')
                 clearErrorLog();
             //First get all cached entities and so 
@@ -46,15 +35,7 @@ class Core {
 
             $this->run();
            // p(get_object_vars($this));
-        }catch(Exception $e){
-
-        }catch(Component_Exception $e){
-            //($e->getMessage);
-        }catch(DB_Exception $e){
-            Globals::$classes['db']->rollback();
-        }finally{
-            $this->finish();
-        }
+        
     }
     public function run(){
         $main_evt = getConfig('main_event');

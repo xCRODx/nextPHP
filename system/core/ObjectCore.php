@@ -30,6 +30,7 @@ class ObjectCore implements ObjectCore_Interface{
             $this->uuid = isset($object['uuid']) ? $object['uuid'] : null;
             $this->name = $object['name'];
             $this->events = $object['events'];
+             
         }
     }
 

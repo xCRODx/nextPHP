@@ -16,7 +16,6 @@ class App extends Core{
 
     function __construct($cfg = []){
 
-        
         try{
             if($this->getErrors())
                 $this->view($this->getErrors());

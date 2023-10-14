@@ -49,6 +49,29 @@ class ObjectCore implements ObjectCore_Interface{
         return $this->image['alias'] ?: $this->getUUID();
     }
 
+    public function getAllvars(){
+        $vars = [];
+        $temp_obj = $this->getBaseObject();
+
+        if(isset($temp_obj['domain'])) unset($temp_obj['domain']);
+        if(isset($temp_obj['statesPassed'])) unset($temp_obj['statesPassed']);
+        
+        if(isset($temp_obj['image']['properties'])) {
+            $local_vars = $temp_obj['image']['properties'];
+            unset($temp_obj['image']);
+        }
+
+        foreach($temp_obj as $var => $val){
+            $vars[$var] = $val;
+        }
+
+        foreach($local_vars as $var => $val){
+            $vars["local.{$var}"] = $val;
+        }
+
+        return is_array($vars) ? $vars : [];
+    }
+
     public function setState($state){
         $this->image['statesPassed'][] = $state;
         $this->image['actualState'] = $state;

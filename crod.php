@@ -2,7 +2,6 @@
 @session_start();
 $_SESSION = [];
 @session_destroy();
-require_once 'system/config/config.php';
 require_once 'vendor/autoload.php';
 //require_once COMMON_PATH.'system/core/app.core.php';
 //require_once CONFIG_PATH.'config.php';

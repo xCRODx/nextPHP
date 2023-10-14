@@ -12,9 +12,10 @@
         "Plugins\\": "System/Plugins/"
       },
       "files": [
+        "system/config/config.php",
         "system/funcs/common.funcs.php",
         "system/funcs/main.funcs.php",
-        "system/funcs/lists.php"
+        "system/config/lists.php"
       ]
     }
   }

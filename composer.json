@@ -13,7 +13,8 @@
       },
       "files": [
         "system/funcs/common.funcs.php",
-        "system/funcs/main.funcs.php"
+        "system/funcs/main.funcs.php",
+        "system/funcs/lists.php"
       ]
     }
   }

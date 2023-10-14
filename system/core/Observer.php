@@ -35,15 +35,20 @@ class Observer{
         $className = get_class($object);
         if($className === 'Component'){
             $objectUUID = $object->getUUID()  ?: uniqid();
-            $this->objLoop[$objectUUID] = 1;
-            
-            if(isset($this->components[$objectUUID]->events['beforecreate']))
-                $this->components[$objectUUID]->events['beforecreate']->fireEvent($this->components);
-            $this->components[$objectUUID]->setUUID($objectUUID);
-            $this->components[$objectUUID]->setState('created');
-            
-            if(isset($this->components[$objectUUID]->events['aftercreate']))
-                $this->components[$objectUUID]->events['aftercreate']->fireEvent($this->components);
+            //Can only execute triggers if the component is actually enabled
+            if(isset($this->components[$objectUUID]) && $this->components[$objectUUID]->isEnabled()){
+                
+                $this->objLoop[$objectUUID] = 1;
+
+                if(isset($this->components[$objectUUID]->events['beforecreate']))
+                    $this->components[$objectUUID]->events['beforecreate']->fireEvent($this->components);
+
+                $this->components[$objectUUID]->setUUID($objectUUID);
+                $this->components[$objectUUID]->setState('created');
+                
+                if(isset($this->components[$objectUUID]->events['aftercreate']))
+                    $this->components[$objectUUID]->events['aftercreate']->fireEvent($this->components);
+            }
         }
     }
 
@@ -52,18 +57,25 @@ class Observer{
         $className = get_class($object);
         if($className === 'Component'){
             $objectUUID = $object->getUUID();
+
+            //Can only execute triggers if the component is actually enabled
+            if(isset($this->components[$objectUUID]) && $this->components[$objectUUID]->isEnabled()){
+                if(isset($this->components[$objectUUID]->events['beforedestory']))
+                    $this->components[$objectUUID]->events['beforedestory']->fireEvent($this->components[$objectUUID]);
+                $this->components[$objectUUID]->actualState = 'destroyed';
+                $this->components[$objectUUID]->statesPassed['destroyed'] = true;
+                $this->components[$objectUUID]->uuid = null;
+                $this->components[$objectUUID]->name = null;
+                $this->components[$objectUUID]->image = [];
+                $this->components[$objectUUID]->disble();
             
-            if(isset($this->components[$objectUUID]->events['beforedestory']))
-                $this->components[$objectUUID]->events['beforedestory']->fireEvent($this->components[$objectUUID]);
-            $this->components[$objectUUID]->actualState = 'destroyed';
-            $this->components[$objectUUID]->statesPassed['destroyed'] = true;
-            $this->components[$objectUUID]->uuid = null;
-            $this->components[$objectUUID]->name = null;
-            $this->components[$objectUUID]->image = [];
-            if(isset($this->components[$objectUUID]->events['afterdestroy']))
-                $this->components[$objectUUID]->events['afterdestroy']->fireEvent($this->components[$objectUUID]);
+                if(isset($this->components[$objectUUID]->events['afterdestroy']))
+                    $this->components[$objectUUID]->events['afterdestroy']->fireEvent($this->components[$objectUUID]);
+
+                unset($this->components[$objectUUID]);
+            }
+
         }
-        unset($this->components[$objectUUID]);
         //remove this from cache
     }
 

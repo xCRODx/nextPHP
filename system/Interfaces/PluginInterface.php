@@ -1,7 +1,8 @@
 <?php
 namespace Interfaces;
+use Includes\PluginInclude;
 
 interface PluginInterface {
-    function getInfoData(): array;
+    static function getInfoData(): PluginInclude;
 }
 

@@ -18,7 +18,7 @@ use Classes\Response;
  */
 class Globals implements BasicStaticInterface {
     static $vars = [];
-
+    static $actionList = [];
     static $started = false;
     static $classes = [];
     static $observer;

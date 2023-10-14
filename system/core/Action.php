@@ -24,4 +24,11 @@ class Action {
 
     }
 
+    public static function getAllActions($plugin = false) : array{
+        $actions = [];
+        if($plugin && isset(Globals::$actionList[$plugin]))
+         $actions = Globals::$actionList[$plugin];
+        return $actions;
+    }
+
 }

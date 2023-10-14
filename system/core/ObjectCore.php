@@ -13,6 +13,7 @@ class ObjectCore implements ObjectCore_Interface{
     public $image; // Is the final source from this object
     public $name;
     public $events = [];
+    public $enabled = true;
 
     public $actualState;
     public $statesPassed = [];
@@ -20,10 +21,10 @@ class ObjectCore implements ObjectCore_Interface{
     public $uuid;
 
     function __construct($object = []) {
-        if($object['type'] == 'object'){
+        if($object['type'] == 'object') {
             $this->statesPassed = $object['image']['statesPassed'] ?: [];
             $this->setState($object['image']['state'] ?: 'initial');
-            
+            $this->enabled = (isset($object['enabled']) ? ($object['enabled'] === 'true' || $object['enabled'] === true ? true : false) : $this->enabled );
             $this->domain = $object['domain'] ?: [];
             $this->image = $object['image'] ?: [];
             $this->uuid = isset($object['uuid']) ? $object['uuid'] : (isset($object['image']['alias']) ? $object['image']['alias'] : null);
@@ -31,6 +32,18 @@ class ObjectCore implements ObjectCore_Interface{
             $this->events = $object['events'];
              
         }
+    }
+
+    public function enable() {
+        $this->enabled = true;
+    }
+
+    public function disable(){
+        $this->enabled = false;
+    }
+
+    public function isEnabled(): bool{
+        return $this->enabled ? true : false;
     }
 
     public function getName(){

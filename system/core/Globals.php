@@ -70,7 +70,7 @@ class Globals implements BasicStaticInterface {
     public static function getAllVars(){
         $vars = [];
         foreach(array_merge(self::$vars, Context::$context) as $var => $val){
-
+            $vars[$var] = $val;
         }
         $vars = array_merge(self::$observer->getAllComponentsVars(), $vars);
 

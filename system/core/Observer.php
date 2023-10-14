@@ -93,7 +93,7 @@ class Observer{
             $alias = $component->getAlias();
             $cVars = $component->getAllVars();
             foreach($cVars as $var => $val){
-                $vars["{$alias}.{$var}"] = $val;
+                $vars["component_{$alias}.{$var}"] = $val;
             }
         }
     }

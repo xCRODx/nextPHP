@@ -8,7 +8,8 @@
         "Classes\\": "system/Class/",
         "Drivers\\": "system/Drivers/",
         "Interfaces\\": "system/Interfaces/",
-        "Exceptions\\": "System/Exceptions/"
+        "Exceptions\\": "System/Exceptions/",
+        "Plugins\\": "System/Plugins/"
       },
       "files": [
         "system/funcs/common.funcs.php",

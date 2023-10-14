@@ -1,5 +1,5 @@
 <?php
-class Action {
+/*class Action {
     public static $actions = [];
     function __construct(){
         $path = ACTIONS_EXTENSION;
@@ -9,4 +9,4 @@ class Action {
         if(!isset($args[0]) || !is_string($args[0]))
             Core::setBackTrace(__CLASS__, __FUNCTION__, $args);
     }
-}
+}*/

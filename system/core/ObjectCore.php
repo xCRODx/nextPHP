@@ -12,7 +12,6 @@ class ObjectCore implements ObjectCore_Interface{
     public $domain; //Is the original or initial source from this object when the instantiate  - Its used for compare
     public $image; // Is the final source from this object
     public $name;
-    public $object;
     public $events = [];
 
     public $actualState;

@@ -1,6 +1,7 @@
 <?php
-class Event {
+/*class Event {
     function __construct(){
         
     }
 }
+*/

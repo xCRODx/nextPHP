@@ -57,7 +57,7 @@ class Interpreter{
     /**
      * 
      * $view - if this is literal the string returns as "'val'", else return "val" or pass to a personalized function
-     * structure of variables: {{:componentUUID.varname}} | {{:local.varname}} | {{:global.varname}}
+     * structure of variables: {{:component.UUID.{local?}.varname}} | {{:local.varname}} | {{:global.varname}}
      */
     public static function replaceVars($vars, Array $var_replace, $view = false, $add_begin = '', $add_end = '') {
         $newVars = array();

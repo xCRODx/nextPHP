@@ -6,6 +6,7 @@ use Core\Core;
 
 use Exception;
 use Exceptions\Component_Exception;
+use Exceptions\Event_Exception;
 use Exceptions\DB_Exception;
 
 class App extends Core{
@@ -23,6 +24,8 @@ class App extends Core{
             parent::__construct($cfg);
 
         }catch(Exception $e){
+
+        }catch(Event_Exception $e){
 
         }catch(Component_Exception $e){
             //($e->getMessage);

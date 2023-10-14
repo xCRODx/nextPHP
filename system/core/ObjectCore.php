@@ -80,28 +80,23 @@ class ObjectCore implements ObjectCore_Interface{
         return $this->actualState;
     }
 
-    function setNewProp($propertie, $val){
-        $this->image['properties'][$propertie] = $val;
+    function setNewProp($prop, $val){
+        $this->setOldProp($prop, $this->getNewProp($prop));
+        $this->image['properties'][$prop] = $val;
     }
 
-    function getNewProp($propertie){
-        return $this->image['properties'][$propertie];
+    function getNewProp($prop){
+        return $this->image['properties'][$prop];
     }
 
-    function getOldProp($propertie){
-        return $this->domain['properties'][$propertie];
+    function getOldProp($prop){
+        return $this->domain['properties'][$prop];
     }
 
-    function setOldProp($propertie, $val){
-        $this->domain[$propertie] = $val;
+    function setOldProp($prop, $val){
+        $this->domain[$prop] = $val;
     }
 
-    function updateAttribute($prop, $val){
-        $this->setOldProp($prop, $this->getNewProp($prop));//backup the old prop
-        $this->setNewProp($prop, $val);
-    }
-
-    
     /*
     * Return the variables and the content from this component
     */

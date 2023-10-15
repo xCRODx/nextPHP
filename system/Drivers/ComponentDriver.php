@@ -23,7 +23,7 @@ class ComponentDriver{
             }
         }
 
-        //get components from cache and instantiate it again
+        //get components from cache and instantiate it
         $base_components = Session::get('base_components') ?: [];
         if(count($base_components))
             foreach($base_components as $name => $component)

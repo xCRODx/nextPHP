@@ -34,10 +34,13 @@ class Observer{
     public function create(ObjectCore &$object){
         $className = get_class($object);
         if($className === 'Component'){
-            $objectUUID = $object->getUUID()  ?: uniqid();
-            //Can only execute triggers if the component is actually enabled
-            if(isset($this->components[$objectUUID]) && $this->components[$objectUUID]->isEnabled()){
-                
+            $objectUUID = (String) $object->getUUID() ?: uniqid();
+            if(!isset($this->components[$objectUUID])){
+                //If object doesn't exists, its will be created
+                $this->components[$objectUUID] = $object;
+            }
+            if($this->objLoop[$objectUUID]->enabled()){
+                //Can only execute triggers if the component is actually enable
                 $this->objLoop[$objectUUID] = 1;
 
                 if(isset($this->components[$objectUUID]->events['beforecreate']))
@@ -105,7 +108,7 @@ class Observer{
             $alias = $component->getAlias();
             $cVars = $component->getAllVars();
             foreach($cVars as $var => $val){
-                $vars["component_{$alias}.{$var}"] = $val;
+                $vars["component.{$alias}.{$var}"] = $val;
             }
         }
     }

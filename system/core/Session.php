@@ -8,7 +8,7 @@ class Session {
     }
 
     public static function get($k){
-        return isset($_SESSION[$k]) ? $_SESSION[$k] : false;
+        return isset($_SESSION[$k]) ? $_SESSION[$k] : null;
     }
 
     public static function set($k, $v){

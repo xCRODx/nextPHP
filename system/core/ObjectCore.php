@@ -7,7 +7,7 @@ use Core\Event;
 /**
  * Its could be a component or even a event, state
  */
-class ObjectCore implements ObjectCore_Interface{
+class ObjectCore extends \SplObserver implements ObjectCore_Interface{
 
     public $domain; //Is the original or initial source from this object when the instantiate  - Its used for compare
     public $image; // Is the final source from this object

@@ -69,7 +69,7 @@ final class Observer implements SplSubject {
                 //If object doesn't exists, its will be created 
                 $this->components[$objectUUID] = $object;
             }
-            if($this->objLoop[$objectUUID]->enabled()){
+            if($this->components[$objectUUID]->isEnabled()){
                 //Can only execute triggers if the component is actually enable
                 $this->objLoop[$objectUUID] = 1;
 

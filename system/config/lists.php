@@ -1,16 +1,16 @@
-<?
+<?php
 use Core\Globals;
 
 Globals::$actionList = [
     'system' => [
-        'Exemple' => [
+        'Example' => [
             'description' => t(),
             'action' => [
                 [
                     'action_type*' => '',//condition, call function, 
                     'action_parameters' => ['parameter1', ''],//if conditional, use Interpreter::traitCondition to verify
-                    'passed' => ['execute other action by name'],//ony conditional
-                    'else' => ['execute other action by name']//ony conditional
+                    'passed' => ['execute other action by name'],//only conditional
+                    'else' => ['execute other action by name']//only conditional
                 ]
             ],
             'parameters' => [

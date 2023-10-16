@@ -9,6 +9,6 @@ class Context implements BasicStaticInterface {
     public static $context = [];
     public static function set($k, $v = true)   { self::$context["context.".$k] = $v; }
     public static function delete($k)           { self::$context["context.".$k] = false; }
-    public static function get($k)              { return self::$context["context.".$k]; }
+    public static function get($k)              { return isset(self::$context["context.".$k]) ? self::$context["context.".$k] : null; }
 
 }

@@ -8,9 +8,9 @@ use Core\Session;
 class Core {
     public static $backTraceRoute = [];
     public static $entities = [];
-    public static $events = [];
+    public $events = [];
     public static $actions = [];
-    public static $components = [];
+    public $components = [];
     public static $response = [];//body, status, headers
     public $observer;
 

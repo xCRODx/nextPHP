@@ -3,11 +3,13 @@ namespace Core;
 
 use Interfaces\ObjectCore_Interface;
 use Core\Event;
+use SplSubject;
+use SplObserver;
 
 /**
  * Its could be a component or even a event, state
  */
-class ObjectCore extends \SplObserver implements ObjectCore_Interface{
+class ObjectCore implements SplObserver{//} implements ObjectCore_Interface{
 
     public $domain; //Is the original or initial source from this object when the instantiate  - Its used for compare
     public $image; // Is the final source from this object
@@ -21,7 +23,7 @@ class ObjectCore extends \SplObserver implements ObjectCore_Interface{
     public $uuid;
 
     function __construct($object = []) {
-        if($object['type'] == 'object') {
+        if(isset($object['type']) && $object['type'] == 'object') {
             $this->statesPassed = $object['image']['statesPassed'] ?: [];
             $this->setState($object['image']['state'] ?: 'initial');
             $this->enabled = (isset($object['enabled']) ? ($object['enabled'] === 'true' || $object['enabled'] === true ? true : false) : $this->enabled );
@@ -116,4 +118,8 @@ class ObjectCore extends \SplObserver implements ObjectCore_Interface{
         return classToArray($this);
     }
 
+    function update(SplSubject $subject): void
+    {
+        
+    }
 }

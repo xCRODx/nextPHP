@@ -5,54 +5,58 @@ use Core\ObjectCore;
 use Core\Event;
 use Core\Component;
 
-use \SplObserver;
-use \SplSubject;
+use SplObserver;
+use SplSubject;
 
 //O campo X do component A atualizou, estava configurado para disparar o evento Z
 //Faz um loop e identifica se houve algum disparo
-final class Observer implements \SplSubject {
+final class Observer implements SplSubject {
     public $events = array();
     public $components = [];
     public $max_loop = 10; // The max actions that a unique object can take in a runtime loop
     private $objLoop = [];//Count the update time that a component has beens called.
 
     function __construct(Array $params = []){
-        $this->max_loop = $params['max_loop'] ?: $this->max_loop;
+        $this->max_loop = isset($params['max_loop']) ? $params['max_loop'] : $this->max_loop;
     }
 
-    public function attach(objectCore $object) : void{
-        $className = get_class($object);
-        if($className === 'Component'){
-            $objectUUID = $object->getUUID();
-            $this->components[$objectUUID] = $object;
-        }else if($className === 'Event'){
-            $this->events[$object->getName()] = $object;
+    public function attach(SplObserver $object) : void{
+        if ($object instanceof ObjectCore) {
+            $className = get_class($object);
+            if($className === 'Component'){
+                $objectUUID = $object->getUUID();
+                $this->components[$objectUUID] = $object;
+            }else if($className === 'Event'){
+                $this->events[$object->getName()] = $object;
+            }
         }
     }
 
-    public function detach(objectCore  $object) : void{
-        $className = get_class($object);
-        if($className === 'Component'){
-            $objectUUID = $object->getUUID();
+    public function detach(SplObserver  $object) : void{
+        if ($object instanceof ObjectCore) {
+            $className = get_class($object);
+            if($className === 'Component'){
+                $objectUUID = $object->getUUID();
 
-            //Can only execute triggers if the component is actually enabled
-            if(isset($this->components[$objectUUID])){
-                if($this->components[$objectUUID]->isEnabled()){
-                    if(isset($this->components[$objectUUID]->events['beforedestory']))
-                        $this->components[$objectUUID]->events['beforedestory']->fireEvent($this->components[$objectUUID]);
-                    $this->components[$objectUUID]->actualState = 'destroyed';
-                    $this->components[$objectUUID]->statesPassed['destroyed'] = true;
-                    $this->components[$objectUUID]->uuid = null;
-                    $this->components[$objectUUID]->name = null;
-                    $this->components[$objectUUID]->image = [];
-                    $this->components[$objectUUID]->disble();
-                
-                    if(isset($this->components[$objectUUID]->events['afterdestroy']))
-                        $this->components[$objectUUID]->events['afterdestroy']->fireEvent($this->components[$objectUUID]);
+                //Can only execute triggers if the component is actually enabled
+                if(isset($this->components[$objectUUID])){
+                    if($this->components[$objectUUID]->isEnabled()){
+                        if(isset($this->components[$objectUUID]->events['beforedestory']))
+                            $this->components[$objectUUID]->events['beforedestory']->fireEvent($this->components[$objectUUID]);
+                        $this->components[$objectUUID]->actualState = 'destroyed';
+                        $this->components[$objectUUID]->statesPassed['destroyed'] = true;
+                        $this->components[$objectUUID]->uuid = null;
+                        $this->components[$objectUUID]->name = null;
+                        $this->components[$objectUUID]->image = [];
+                        $this->components[$objectUUID]->disble();
+                    
+                        if(isset($this->components[$objectUUID]->events['afterdestroy']))
+                            $this->components[$objectUUID]->events['afterdestroy']->fireEvent($this->components[$objectUUID]);
+                    }
+                    unset($this->components[$objectUUID]);
                 }
-                unset($this->components[$objectUUID]);
-            }
 
+            }
         }
         //remove this from cache
     }
@@ -121,7 +125,7 @@ final class Observer implements \SplSubject {
         $list = [];
         if(count($components)){
             foreach($components as $component){
-                $list[$component->getName] = $component->getBaseObject();
+                $list[$component->getName()] = $component->getBaseObject();
             }
         }elseif(count($this->components)){
             foreach($this->components as $uuid => $component){

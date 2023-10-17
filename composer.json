@@ -17,5 +17,8 @@
         "system/funcs/main.funcs.php",
         "system/config/lists.php"
       ]
+    },
+    "require": {
+        "cboden/ratchet": "^0.4.4"
     }
-  }
+}

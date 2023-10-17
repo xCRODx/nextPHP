@@ -104,4 +104,5 @@ class Event extends ObjectCore{
         $this->localVars["local.".$var] = $val;
     }
 
+
 }

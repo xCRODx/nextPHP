@@ -107,6 +107,7 @@ final class Observer implements SplSubject {
 
     public function notify() : void {
         //get this event and fire it
+        //pass by all components and fire it
     }
 
     public function getAllComponentsVars(){
